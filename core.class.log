@@ -1,0 +1,42 @@
+[handleMsg]:  {
+  key: {
+    remoteJid: '51946626935@s.whatsapp.net',
+    fromMe: false,
+    id: '3EB06CDC6784849F286D68',
+    participant: undefined
+  },
+  messageTimestamp: 1715891544,
+  pushName: 'Jose',
+  broadcast: false,
+  message: Message {
+    extendedTextMessage: ExtendedTextMessage {
+      text: 'ola',
+      contextInfo: [ContextInfo],
+      inviteLinkGroupTypeV2: 0
+    },
+    messageContextInfo: MessageContextInfo {
+      deviceListMetadata: [DeviceListMetadata],
+      deviceListMetadataVersion: 2
+    }
+  },
+  body: 'ola',
+  from: '51946626935'
+}
+[QUEUE_SE_ENVIO]:  {
+  ref: 'ans_bc22d4df-13ed-4743-86b1-88ac21dabe86',
+  keyword: 'key_94f2a004-aa33-431d-ae84-6fc87c8cf4f1',
+  answer: 'bienvenido a Sunetya',
+  options: {
+    media: null,
+    buttons: [],
+    capture: false,
+    child: null,
+    delay: 0,
+    idle: null,
+    ref: null,
+    nested: [],
+    keyword: {},
+    callback: false
+  },
+  refSerialize: '3c04de8a7afbf2403bfe70d6e8d273a9'
+}
