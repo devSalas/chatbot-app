@@ -2,30 +2,26 @@
   key: {
     remoteJid: '51946626935@s.whatsapp.net',
     fromMe: false,
-    id: '3EB06CDC6784849F286D68',
+    id: 'CE6B11339EF20C70A6340023C4E26AF2',
     participant: undefined
   },
-  messageTimestamp: 1715891544,
+  messageTimestamp: 1716522073,
   pushName: 'Jose',
   broadcast: false,
   message: Message {
-    extendedTextMessage: ExtendedTextMessage {
-      text: 'ola',
-      contextInfo: [ContextInfo],
-      inviteLinkGroupTypeV2: 0
-    },
+    conversation: 'En q año fue fundada la empresa',
     messageContextInfo: MessageContextInfo {
       deviceListMetadata: [DeviceListMetadata],
       deviceListMetadataVersion: 2
     }
   },
-  body: 'ola',
+  body: 'En q año fue fundada la empresa',
   from: '51946626935'
 }
 [QUEUE_SE_ENVIO]:  {
-  ref: 'ans_bc22d4df-13ed-4743-86b1-88ac21dabe86',
-  keyword: 'key_94f2a004-aa33-431d-ae84-6fc87c8cf4f1',
-  answer: 'bienvenido a Sunetya',
+  ref: 'ans_187d9d44-ff72-4059-9ac5-01ad0fb6b27a',
+  keyword: 'key_fbecfc38-39b9-44d7-a28a-6c5926d067b8',
+  answer: '__call_action__',
   options: {
     media: null,
     buttons: [],
@@ -36,7 +32,7 @@
     ref: null,
     nested: [],
     keyword: {},
-    callback: false
+    callback: true
   },
-  refSerialize: '3c04de8a7afbf2403bfe70d6e8d273a9'
+  refSerialize: 'f78a3dacd9666aa0abd54a3cd1ef45fb'
 }

@@ -17,49 +17,55 @@ const MYSQL_DB_PORT = 3306
 
 
 
-/**
- * Aqui declaramos los flujos hijos, los flujos se declaran de atras para adelante, es decir que si tienes un flujo de este tipo:
- *
- *          Menu Principal
- *           - SubMenu 1
- *             - Submenu 1.1
- *           - Submenu 2
- *             - Submenu 2.1
- *
- * Primero declaras los submenus 1.1 y 2.1, luego el 1 y 2 y al final el principal.
- */
+const { GoogleGenerativeAI } = require("@google/generative-ai")
+const genAI = new GoogleGenerativeAI(process.env.SECRET_GEMINI || "");
 
-/* const flowSecundario = addKeyword(['2', 'siguiente']).addAnswer(['📄 Aquí tenemos el flujo secundario'])
+const fs = require("fs")
 
-const flowDocs = addKeyword(['doc', 'documentacion', 'documentación']).addAnswer(
-    [
-        '📄 Aquí encontras las documentación recuerda que puedes mejorarla',
-        'https://bot-whatsapp.netlify.app/',
-        '\n*2* Para siguiente paso.',
-    ],
-    null,
-    null,
-    [flowSecundario]
-)
 
- */
+async function runGemini(request) {
+    // For text-only input, use the gemini-pro model
+    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const prompt = request
 
-const flujoPrincipal = addKeyword(["hola","ola","Ola"]).addAnswer("bienvenido a Sunetya")
+    const data ="Tecnología Global XYZ es una empresa líder en soluciones tecnológicas innovadoras, dedicada a transformar la manera en que las empresas operan en la era digital. Fundada en 2010, nuestra misión es empoderar a las organizaciones a través de servicios de consultoría en tecnología avanzada, desarrollo de software personalizado y estrategias de ciberseguridad de vanguardia. Con un equipo de expertos apasionados por la tecnología, ofrecemos un enfoque integral que abarca desde la modernización de inf"
 
-const flujoSecundario = addKeyword("info").addAnswer("perfecto, ahora le damos la información")
+
+    const result = await model.generateContent(`ten en cuenta solo esta información para contestar a esta pregunta: ${data}. ahora responde a esto:  ${prompt}`);
+    const response = await result.response;
+    return response.text();
+}
+
+
+
+
+
+const REGEX_RESPONSE = '/.*/';
+const flujoPrincipal = addKeyword(REGEX_RESPONSE, { regex: true }).addAction(async (ctx, { flowDynamic }) => {
+
+    const numero = ctx.from
+
+    const data  =await runGemini(ctx.body)
+    console.log(data)
+    await flowDynamic(data)
+})
+
+
+
+
 
 
 const main = async () => {
-  /*   const adapterDB = new MySQLAdapter({
-        host: MYSQL_DB_HOST,
-        user: MYSQL_DB_USER,
-        database: MYSQL_DB_NAME,
-        password: MYSQL_DB_PASSWORD,
-        port: MYSQL_DB_PORT,
-    }) */
+    /*   const adapterDB = new MySQLAdapter({
+          host: MYSQL_DB_HOST,
+          user: MYSQL_DB_USER,
+          database: MYSQL_DB_NAME,
+          password: MYSQL_DB_PASSWORD,
+          port: MYSQL_DB_PORT,
+      }) */
     /* const adapterDB = new DBProvider() */
-    const adapterDB = new MongoAdapter({ dbUri: "mongodb+srv://esteban:9mka6pw0IpMUW8hN@cluster0.sg2d9.mongodb.net/whatsapp?retryWrites=true&w=majority"})
-    const adapterFlow = createFlow([flujoPrincipal,flujoSecundario])
+    const adapterDB = new MongoAdapter({ dbUri: "mongodb+srv://esteban:9mka6pw0IpMUW8hN@cluster0.sg2d9.mongodb.net/whatsapp?retryWrites=true&w=majority" })
+    const adapterFlow = createFlow([flujoPrincipal])
     const adapterProvider = createProvider(BaileysProvider)
     createBot({
         flow: adapterFlow,
